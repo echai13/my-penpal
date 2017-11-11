@@ -1,21 +1,33 @@
 const crypto = require('crypto')
-const Sequelize = require('sequelize')
+const { STRING, ENUM } = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  username: {
+    type: STRING,
+    unique: true,
+    allowNull: false
+  },
   email: {
-    type: Sequelize.STRING,
+    type: STRING,
     unique: true,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING
+    type: STRING
+  },
+  gender: {
+    type: ENUM('F', 'M')
+  },
+  location: {
+    type: STRING,
+    defaultValue: 'Venus'
   },
   salt: {
-    type: Sequelize.STRING
+    type: STRING
   },
   googleId: {
-    type: Sequelize.STRING
+    type: STRING
   }
 })
 
