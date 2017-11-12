@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,22 +11,48 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
+    <div className="login">
+      { props.name === 'login' &&
+        <div className="auth-text text-center">
+          <h4><span className="gray">New? </span>
+            <span className="yellow"><Link to="/signup" className="no-link-dec yellow">Sign Up Now.</Link></span>
+          </h4>
+        </div>
+      }
+      <div className="form-width">
+      <form onSubmit={handleSubmit} name={name} className="center-block">
+        <div className="form-group">
           <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
+          <input name="email" type="text" className="form-control" />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
+          <input name="password" type="password" className="form-control" />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        { props.name === 'signup' &&
+          <span>
+            <div className="form-group">
+              <label htmlFor="username"><small>Username</small></label>
+              <input name="username" type="text" className="form-control" />
+            </div>
+            <div className="form-group col-md-12"><small>Gender</small>
+                <label htmlFor="female" type="text">
+                  <input name="gender" type="radio" value="F" /> Female
+                </label>
+                <label htmlFor="male" type="text">
+                  <input name="gender" type="radio" value="M" /> Male
+                </label>
+            </div>
+          </span>
+        }
+
+
+        <div className="form-group">
+          <button type="submit" className="form-control yellow">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }
@@ -40,7 +67,7 @@ const AuthForm = (props) => {
 const mapLogin = (state) => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'Go',
     error: state.user.error
   }
 }
@@ -48,7 +75,7 @@ const mapLogin = (state) => {
 const mapSignup = (state) => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'Welcome',
     error: state.user.error
   }
 }

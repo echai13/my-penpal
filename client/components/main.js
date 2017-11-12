@@ -14,23 +14,18 @@ const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
-    <div className="container">
-      <h1>BOILERMAKER</h1>
+    <div className="main">
+      <h1 className="col-md-12"><img src="/envelope.png" className="center-block" /></h1>
       <nav>
         {
           isLoggedIn
-            ? <div>
+            && <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <Link to="/inbox">Inbox</Link>
               <Link to="/preferences">Preferences</Link>
               <Link to="/penpals">Penpals</Link>
               <a href="#" onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
             </div>
         }
       </nav>
