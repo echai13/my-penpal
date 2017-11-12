@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Inbox, Preferences, Penpals} from './components'
+import {Main, Login, Signup, UserHome, Inbox, Preferences, Penpals, Message} from './components'
 import {me} from './store'
 
 /**
@@ -33,6 +33,8 @@ class Routes extends Component {
                   <Route path="/inbox" component={Inbox} />
                   <Route path="/preferences" component={Preferences} />
                   <Route path="/penpals" component={Penpals} />
+                  <Route path="/write" component={Message} />
+                  <Route path="/drafts/:messageId" component={Message} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

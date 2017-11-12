@@ -9,8 +9,9 @@ import preferences from './preferences'
 import countries from './countries'
 import penpals from './penpals'
 import friends from './friends'
+import singleMessage from './singleMessage'
 
-const reducer = combineReducers({user, messages, interests, preferences, countries, penpals, friends})
+const reducer = combineReducers({user, messages, interests, preferences, countries, penpals, friends, singleMessage})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -25,3 +26,4 @@ export * from './preferences'
 export * from './countries'
 export * from './penpals'
 export * from './friends'
+export * from './singleMessage'
