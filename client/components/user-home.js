@@ -14,14 +14,22 @@ class UserHome extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Welcome, {this.props.email}</h3>
+      <div className="home-page row" style={{backgroundImage: "url('/wood.jpg')"}}>
+        <div className="col-md-6">
+          <img src="/received_letters.png" className="received" />
+          <img src="/stamp.png" className="stamps" />
+        </div>
+        <div className="col-md-6">
+          <img src="/new_letters.png" className="write" />
+          <img src="/writing_utensils.png" />
+        </div>
+        {/* <h3>Welcome, {this.props.email}</h3>
 
         <ul>
           { this.props.friends && this.props.friends.map(friend => (
             <li key={friend.id}>{friend.username}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     )
   }

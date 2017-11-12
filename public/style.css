@@ -1,0 +1,89 @@
+/** {
+  box-sizing: border-box;
+  border: 1px solid black;
+}*/
+
+body #app {
+  min-height: 100vh !important;
+}
+
+body #app.main-bkgd {
+  min-height: 100vh !important;
+  background-color: #FDEAA6
+}
+
+div.main {
+  padding-top: 3%;
+  padding-bottom: 5%
+}
+
+.login {
+  background-color: #7BC5DA;
+  width: 35%;
+  margin: 0px auto;
+}
+
+.form-width {
+  width: 50%;
+  margin: 0px auto;
+  padding-top: 3%;
+  padding-bottom: 3%
+
+}
+
+.center-block {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.text-center {
+  text-align: center
+}
+
+.login input {
+  background-color: #FDEAA6
+}
+
+.gray, .no-link-dec:hover {
+  color: #919191;
+}
+
+.yellow {
+  color: #FDEAA6
+}
+
+.auth-text {
+  padding: 3%
+}
+
+button.yellow {
+  background-color: #FDEAA6
+}
+
+.no-link-dec, .no-link-dec:hover {
+  text-decoration: none;
+}
+
+div.home-page {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-url: url('/wood.jpg') !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1
+}
+
+.home-page .received {
+  width: 60%;
+  height: 35%;
+  margin: 17%
+}
+
+.home-page .write {
+  margin-top: 8%
+}
+
+.home-page .stamps {
+  margin-left: 17%
+}
