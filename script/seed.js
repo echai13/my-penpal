@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Message, Preference, Interest, Penpal } = require('../server/db/models')
+const { User, Message, Preference, Interest, Penpal, Delivery } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -72,6 +72,8 @@ async function seed () {
       content: 'I was very pleased to hear that you have been offered a position at the Garnet Company after graduation.You have my heartfelt congratulations both on graduating and earning your new position. I know that Garnet Company was one of the “Top 3” employers you’d hoped that you could work for, so you must be beyond thrilled to be onboarding with them! These are exciting changes, and I\'m sure you will meet the challenges they bring with your usual optimism, creativity, and capability. I wish you all the best as you move forward in your new career.',
       fromLocation: 'United States',
       toLocation: 'England',
+      fromContinent: 'North America',
+      toContinent: 'Europe',
       status: 'SENT',
       senderId: 2,
       receiverId: 1
@@ -81,6 +83,8 @@ async function seed () {
       content: 'How wonderful to learn that all of your hard work at XYZ University has paid off in your new job offer. It has been a pleasure to work with you over the course of the past two years – your dedication to your studies and your willingness to help your peers has truly contributed to the productivity and morale of our department.',
       fromLocation: 'France',
       toLocation: 'England',
+      fromContinent: 'Europe',
+      toContinent: 'Europe',
       status: 'SENT',
       senderId: 3,
       receiverId: 2
@@ -90,6 +94,8 @@ async function seed () {
       content: 'Congratulations on your retirement! You have been a dedicated and appreciated employee of the Pajath Company for 25 years, and I\'m happy that you have this opportunity to spend some time with your family before you embark on your next venture.',
       fromLocation: 'France',
       toLocation: 'England',
+      fromContinent: 'Europe',
+      toContinent: 'Europe',
       status: 'DELIVERED',
       senderId: 3,
       receiverId: 2
@@ -99,6 +105,8 @@ async function seed () {
       content: 'Congratulations on your retirement from Helpful House. You have made such a difference in the lives of so many children when they needed someone most. It\'s wonderful that you will continue helping people through your volunteer work, and be able to spend more time with those adorable grandchildren. We will all miss your smiling face and hope that you\'ll drop by to visit when you have time.',
       fromLocation: 'France',
       toLocation: 'England',
+      fromContinent: 'Europe',
+      toContinent: 'Europe',
       status: 'DRAFT',
       senderId: 3,
       receiverId: 2
@@ -124,6 +132,51 @@ async function seed () {
     })
   ])
   console.log(`seeded ${preferences.length} preferences`)
+
+  const delivery = await Promise.all([
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'North America',
+      timeDuration: 259200000
+    }),
+
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'South America',
+      timeDuration: 432000000
+    }),
+
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'Europe',
+      timeDuration: 604800000
+    }),
+
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'Africa',
+      timeDuration: 604800000
+    }),
+
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'Asia',
+      timeDuration: 864000000
+    }),
+
+    Delivery.create({
+      fromContinent: 'North America',
+      toContinent: 'Australia',
+      timeDuration: 864000000
+    }),
+
+    Delivery.create({
+      fromContinent: 'Europe',
+      toContinent: 'Europe',
+      timeDuration: 259200000
+    }),
+  ])
+  console.log(`seeded ${delivery.length} deliveries`)
 }
 
 // Execute the `seed` function
