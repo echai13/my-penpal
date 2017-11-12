@@ -1,6 +1,10 @@
 const crypto = require('crypto')
 const { STRING, ENUM } = require('sequelize')
 const db = require('../db')
+const Interest = require('./interest')
+const Preference = require('./preference')
+const Penpal = require('./penpal')
+
 
 const User = db.define('user', {
   username: {
@@ -29,9 +33,15 @@ const User = db.define('user', {
   googleId: {
     type: STRING
   }
+}, {
+    defaultScope: {
+      include: [
+        { model: Interest }, { model: Preference }]
+    }
 })
 
 module.exports = User
+
 
 /**
  * instanceMethods

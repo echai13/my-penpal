@@ -8,8 +8,8 @@ const getInterests = (interests) => ({ type: GET_INTERESTS, interests })
 
 export const fetchInterests = () =>
   dispatch =>
-    axios.get(`/api/interests`)
-      .then(interests => dispatch(getInterests(interests)))
+    axios.get(`/api/preferences/interests`)
+      .then(interests => dispatch(getInterests(interests.data)))
       .catch(err => console.log(err))
 
 

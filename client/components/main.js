@@ -14,7 +14,7 @@ const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
-    <div>
+    <div className="container">
       <h1>BOILERMAKER</h1>
       <nav>
         {
@@ -24,6 +24,7 @@ const Main = (props) => {
               <Link to="/home">Home</Link>
               <Link to="/inbox">Inbox</Link>
               <Link to="/preferences">Preferences</Link>
+              <Link to="/penpals">Penpals</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>

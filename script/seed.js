@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Message, Preference, Interest } = require('../server/db/models')
+const { User, Message, Preference, Interest, Penpal } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -42,6 +42,30 @@ async function seed () {
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
+
+  const penpals = await Promise.all([
+    Penpal.create({
+      accepted: true,
+      userId: 1,
+      friendId: 2
+    }),
+    Penpal.create({
+      accepted: true,
+      userId: 2,
+      friendId: 1
+    }),
+    Penpal.create({
+      accepted: true,
+      userId: 2,
+      friendId: 3
+    }),
+    Penpal.create({
+      accepted: true,
+      userId: 3,
+      friendId: 2
+    })
+  ])
+  console.log(`seeded ${penpals.length} penpals`)
 
   const messages = await Promise.all([
     Message.create({

@@ -1,18 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { fetchFriends } from '../store'
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
+class UserHome extends React.Component {
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  componentDidMount() {
+    this.props.fetchAllFriends(this.props.user.id)
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Welcome, {this.props.email}</h3>
+
+        <ul>
+          { this.props.friends && this.props.friends.map(friend => (
+            <li key={friend.id}>{friend.username}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 }
 
 /**
@@ -20,11 +32,22 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    user: state.user,
+    friends: state.friends
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => {
+  return {
+    fetchAllFriends (userId) {
+      console.log('enter')
+      dispatch(fetchFriends(userId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

@@ -3,7 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/messages', require('./messages'))
-router.use('/interests', require('./interests'))
+router.use('/preferences', require('./preferences'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
