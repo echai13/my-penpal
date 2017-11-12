@@ -1,4 +1,6 @@
 import axios from 'axios'
+import history from '../history'
+import { setSingleMessage } from './singleMessage'
 const defaultMessages = []
 
 
@@ -23,6 +25,22 @@ export const fetchDrafts = (userId) =>
       .then(messages => dispatch(setMessages(messages.data)))
       .catch(err => console.log(err))
 
+export const saveMessage = message =>
+  dispatch => {
+    axios.post(`/api/messages/${message.sender.id}`, message)
+      .then(res => dispatch(setSingleMessage(res.data)))
+      .catch(err => console.log(err))
+    }
+
+export const sendMessage = message =>
+  dispatch => {
+    axios.put(`/api/messages/${message.sender.id}`, message)
+      .then(_ => {
+        dispatch(setSingleMessage({}))
+        history.push(`/home`)
+      })
+      .catch(err => console.log(err))
+  }
 
 export default function (state = defaultMessages, action) {
   switch (action.type) {

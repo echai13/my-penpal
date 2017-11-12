@@ -25,6 +25,7 @@ const Main = (props) => {
               <Link to="/inbox">Inbox</Link>
               <Link to="/preferences">Preferences</Link>
               <Link to="/penpals">Penpals</Link>
+              <Link to="/write">New Letter</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
         }

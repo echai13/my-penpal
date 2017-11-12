@@ -87,3 +87,12 @@ div.home-page {
 .home-page .stamps {
   margin-left: 17%
 }
+
+.message-content {
+  min-height: 80vh;
+  max-width: 65%
+}
+
+div.message select {
+  max-width: 100%
+}
