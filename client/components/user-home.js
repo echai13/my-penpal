@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { fetchFriends } from '../store'
+import { fetchFriends, checkMessagesStatus } from '../store'
 
 /**
  * COMPONENT
@@ -10,6 +10,7 @@ class UserHome extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllFriends(this.props.user.id)
+    this.props.checkMessages(this.props.user.id)
   }
 
   render() {
@@ -51,6 +52,10 @@ const mapDispatch = dispatch => {
     fetchAllFriends (userId) {
       console.log('enter')
       dispatch(fetchFriends(userId))
+    },
+    checkMessages (userId) {
+      console.log(`enter checkMessages`)
+      dispatch(checkMessagesStatus(userId))
     }
   }
 }

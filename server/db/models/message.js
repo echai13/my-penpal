@@ -1,5 +1,6 @@
 const { STRING, ENUM, TEXT } = require('sequelize')
 const db = require('../db')
+const Delivery = require('./delivery')
 
 const Message = db.define('message', {
   content: {
@@ -27,5 +28,28 @@ const Message = db.define('message', {
     defaultValue: 'DRAFT'
   }
 })
+
+Message.prototype.readyForDelivery = function() {
+  const messageSent = this.updatedAt
+  const now = Date.now()
+
+  return Delivery.findOne({
+    where: {
+      fromContinent: this.fromContinent,
+      toContinent: this.toContinent
+    }
+  })
+    .then(delivery => {
+      console.log(delivery.dataValues.timeDuration)
+      console.log(messageSent.getTime())
+      console.log(now)
+      if (now - messageSent.getTime() >= delivery.dataValues.timeDuration) {
+        this.update({ status: 'DELIVERED' })
+        return true
+      } else {
+        return false
+      }
+    })
+}
 
 module.exports = Message

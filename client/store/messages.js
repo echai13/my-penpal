@@ -25,6 +25,12 @@ export const fetchDrafts = (userId) =>
       .then(messages => dispatch(setMessages(messages.data)))
       .catch(err => console.log(err))
 
+export const checkMessagesStatus = (userId) =>
+  dispatch =>
+    axios.get(`/api/messages/${userId}/checkstatus`)
+      .then(messages => console.log(messages.data))
+      .catch(err => console.log(err))
+
 export const saveMessage = message =>
   dispatch => {
     axios.post(`/api/messages/${message.sender.id}`, message)

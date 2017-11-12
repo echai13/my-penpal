@@ -65,3 +65,17 @@ router.put(`/:userId`, (req, res, next) => {
       .catch(next)
   }
 })
+
+router.get(`/:userId/checkstatus`, (req, res, next) => {
+  Message.findAll({
+    where: {
+      receiverId: req.params.userId,
+      status: 'SENT'
+    }
+  })
+    .then(messages => {
+      const filteredMessages = messages.filter(message => message.readyForDelivery())
+      res.json(filteredMessages)
+    })
+    .catch(next)
+})
