@@ -38,6 +38,12 @@ router.get('/:userId/drafts', (req, res, next) => {
     .then(messages => res.json(messages))
 })
 
+router.get(`/:messageId`, (req, res, next) => {
+  Message.findById(req.params.messageId)
+    .then(message => res.json(message))
+    .catch(next)
+})
+
 router.post(`/:userId`, (req, res, next) => {
   Message.create({ senderId: req.body.sender.id, receiverId: req.body.receiver.id, content: req.body.content, status: 'DRAFT', fromLocation: req.body.sender.location, toLocation: req.body.receiver.location })
     .then(message => res.json(message))
@@ -51,6 +57,7 @@ router.put(`/:userId`, (req, res, next) => {
       .then(message => {
         message.update({ status: 'SENT' })
       })
+      .then(_ => res.sendStatus(200))
       .catch(next)
   } else {
     Message.create({ senderId: req.body.sender.id, receiverId: req.body.receiver.id, content: req.body.content, status: 'SENT', fromLocation: req.body.sender.location, toLocation: req.body.receiver.location })

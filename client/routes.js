@@ -34,6 +34,7 @@ class Routes extends Component {
                   <Route path="/preferences" component={Preferences} />
                   <Route path="/penpals" component={Penpals} />
                   <Route path="/write" component={Message} />
+                  <Route path="/drafts/:messageId" component={Message} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

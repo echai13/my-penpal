@@ -34,9 +34,11 @@ export const saveMessage = message =>
 
 export const sendMessage = message =>
   dispatch => {
+    console.log('sendMessage')
     axios.put(`/api/messages/${message.sender.id}`, message)
       .then(_ => {
         dispatch(setSingleMessage({}))
+        console.log('enter here')
         history.push(`/home`)
       })
       .catch(err => console.log(err))
