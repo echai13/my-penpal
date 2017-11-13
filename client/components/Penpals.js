@@ -16,13 +16,17 @@ class Penpals extends Component {
   render() {
    return (
       <div>
+        <div className="penpals row">
         { this.props.penpals && this.props.penpals.map(penpal => (
-          <li key={penpal.id}>{penpal.username}
-            { this.props.friends.length < 2 &&
-            <button type="submit">Add Friend</button>
+          <div key={penpal.id} className="penpals-list col-md-4">
+            <h4 className="col-md-12">{penpal.username}</h4>
+            <img className="col-md-12" src={penpal.image} />
+            { this.props.friends.length < 3 &&
+            <div><button type="submit">Add Friend</button></div>
             }
-          </li>
+          </div>
         ))}
+        </div>
       </div>
     )
   }

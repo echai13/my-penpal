@@ -30,18 +30,21 @@ async function seed () {
   console.log(`seeded ${interests.length} interests`)
 
   const users = await Promise.all([
-    User.create({ username: 'cody101', location: 'United States', gender: 'M', email: 'cody@email.com', password: '123' })
+    User.create({ username: 'cody101', location: 'United States', continent: 'North America', gender: 'M', email: 'cody@email.com', password: '123', image: '/avatar-guy-01.png' })
       .then(user => user.setInterests([interests[0], interests[3]])),
-    User.create({ username: 'murphy', location: 'England', gender: 'M', email: 'murphy@email.com', password: '123'})
+    User.create({ username: 'murphy', location: 'England', continent: 'Europe', gender: 'M', email: 'murphy@email.com', password: '123', image: '/avatar-guy-02.png' })
       .then(user => user.setInterests([interests[0], interests[5]])),
-    User.create({ username: 'hkeller', location: 'France', gender: 'F', email: 'helenkeller@gmail.com', password: '123' })
+    User.create({ username: 'hkeller', location: 'France', continent: 'Europe', gender: 'F', email: 'helenkeller@gmail.com', password: '123', image: '/avatar-girl-01.png' })
+      .then(user => user.setInterests([interests[4], interests[5]])),
+    User.create({ username: 'aearhart', location: 'United States', continent: 'North America', gender: 'F', email: 'aearhart@gmail.com', password: '123', image: '/avatar-girl-02.png' })
+      .then(user => user.setInterests([interests[4], interests[5]])),
+    User.create({ username: 'ahepburn', location: 'England', continent: 'Europe', gender: 'F', email: 'ahepburn@gmail.com', password: '123', image: '/panda.png' })
       .then(user => user.setInterests([interests[4], interests[5]])),
 
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
 
   const penpals = await Promise.all([
     Penpal.create({
@@ -175,8 +178,15 @@ async function seed () {
       toContinent: 'Europe',
       timeDuration: 259200000
     }),
+
+    Delivery.create({
+      fromContinent: 'Europe',
+      toContinent: 'North America',
+      timeDuration: 604800000
+    }),
   ])
   console.log(`seeded ${delivery.length} deliveries`)
+  console.log(`seeded successfully`)
 }
 
 // Execute the `seed` function

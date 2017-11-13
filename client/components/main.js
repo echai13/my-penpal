@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, setSingleMessage} from '../store'
 
 /**
  * COMPONENT
@@ -25,7 +25,7 @@ const Main = (props) => {
               <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
               <Link to="/preferences">Preferences</Link>
               <Link to="/penpals">Penpals</Link>
-              <Link to="/write">New Letter</Link>
+              <Link to="/write" onClick={props.handleWriteNew}>New Letter</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
         }
@@ -50,6 +50,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout())
+    },
+    handleWriteNew () {
+      dispatch(setSingleMessage({}))
     }
   }
 }

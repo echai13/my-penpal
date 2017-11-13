@@ -96,3 +96,64 @@ div.home-page {
 div.message select {
   max-width: 100%
 }
+
+div.inbox .inbox-buttons, .message .action-buttons {
+  text-align: center;
+}
+
+div.inbox .inbox-content {
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+form.interest h4 {
+  padding-top: 5%
+}
+
+form.interest, div.user-info, div.user-info h3 {
+  max-width: 45%;
+  margin: 0 auto;
+}
+
+div.user-info {
+  margin: 10px auto;
+  padding: 25px
+}
+
+.inbox-content div {
+  background-color: #7BC5DA;
+  width: 75%;
+  min-height: 100px;
+  margin: 10px auto;
+  padding: 25px
+}
+
+nav div {
+  max-width: 40%;
+  margin: 0px auto
+}
+
+textarea, textarea:focus {
+  background-color: #7BC5DA !important;
+  display: block !important
+}
+
+.blue {
+  background-color: #7BC5DA
+}
+
+.user-info img, div.penpals-list img {
+  max-width: 50%;
+  height: 80%;
+  text-align: center;
+}
+
+div.user-info h4 {
+  margin-top: 5%;
+  color: #FDEAA6
+}
+
+div.penpals-list, div.penpals-list h4, div.penpals-list img {
+  margin: 0 auto;
+  text-align: center;
+}

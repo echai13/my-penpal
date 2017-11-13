@@ -23,9 +23,17 @@ const User = db.define('user', {
   gender: {
     type: ENUM('F', 'M')
   },
+  image: {
+    type: STRING,
+    defaultValue: '/panda.png'
+  },
   location: {
     type: STRING,
     defaultValue: 'Venus'
+  },
+  continent: {
+    type: STRING,
+    defaultValue: 'North America'
   },
   salt: {
     type: STRING

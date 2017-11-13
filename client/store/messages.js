@@ -30,7 +30,6 @@ export const checkMessagesStatus = (userId) =>
   dispatch =>
     axios.get(`/api/messages/${userId}/checkstatus`)
       .then(messages => {
-        console.log(messages)
         dispatch(setNotification(messages.data.length))
       })
       .catch(err => console.log(err))

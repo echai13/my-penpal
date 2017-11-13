@@ -1,6 +1,7 @@
 const { STRING, ENUM, TEXT, VIRTUAL } = require('sequelize')
 const db = require('../db')
 const Delivery = require('./delivery')
+const User = require('./user')
 
 const Message = db.define('message', {
   content: {
@@ -26,8 +27,23 @@ const Message = db.define('message', {
   status: {
     type: ENUM('DRAFT', 'SENT', 'DELIVERED'),
     defaultValue: 'DRAFT'
+  },
+  truncate: {
+    type: VIRTUAL,
+    get() {
+      return this.content.slice(0, 50) + '...'
+    }
+  }
+}, {
+  defaultScope: {
+    include: [
+      { model: User, as: 'receiver' }, { model: User, as: 'sender' }]
   }
 })
+
+// Message.prototype.truncate = function() {
+//   return this.content.substring(0, 50)
+// }
 
 Message.prototype.readyForDelivery = async function() {
   const messageSent = this.updatedAt.getTime()

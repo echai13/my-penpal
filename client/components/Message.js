@@ -50,7 +50,7 @@ class Message extends Component {
           }
           </div>
 
-          <div className="form-group center-block">
+          <div className="form-group center-block action-buttons">
             <button type="submit" onClick={() => this.setAction('save')}>Save Changes</button>
             <button type="submit" onClick={() => this.setAction('send')}>Send</button>
           </div>

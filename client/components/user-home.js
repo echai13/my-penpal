@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import { fetchFriends, checkMessagesStatus } from '../store'
 
 /**
@@ -17,11 +18,11 @@ class UserHome extends React.Component {
     return (
       <div className="home-page row" style={{backgroundImage: "url('/wood.jpg')"}}>
         <div className="col-md-6">
-          <img src="/received_letters.png" className="received" />
+          <Link to="/inbox"><img src="/received_letters.png" className="received" /></Link>
           <img src="/stamp.png" className="stamps" />
         </div>
         <div className="col-md-6">
-          <img src="/new_letters.png" className="write" />
+          <Link to="/write"><img src="/new_letters.png" className="write" /></Link>
           <img src="/writing_utensils.png" />
         </div>
         {/* <h3>Welcome, {this.props.email}</h3>
