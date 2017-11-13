@@ -1,4 +1,4 @@
-const { STRING, ENUM, TEXT } = require('sequelize')
+const { STRING, ENUM, TEXT, VIRTUAL } = require('sequelize')
 const db = require('../db')
 const Delivery = require('./delivery')
 
@@ -29,27 +29,27 @@ const Message = db.define('message', {
   }
 })
 
-Message.prototype.readyForDelivery = function() {
-  const messageSent = this.updatedAt
+Message.prototype.readyForDelivery = async function() {
+  const messageSent = this.updatedAt.getTime()
   const now = Date.now()
 
-  return Delivery.findOne({
+  const delivery = await Delivery.findOne({
     where: {
       fromContinent: this.fromContinent,
       toContinent: this.toContinent
     }
   })
-    .then(delivery => {
-      console.log(delivery.dataValues.timeDuration)
-      console.log(messageSent.getTime())
-      console.log(now)
-      if (now - messageSent.getTime() >= delivery.dataValues.timeDuration) {
-        this.update({ status: 'DELIVERED' })
-        return true
-      } else {
-        return false
-      }
-    })
+  const deliveryTime = delivery.dataValues.timeDuration
+  console.log(delivery.dataValues.timeDuration)
+  console.log(messageSent)
+  console.log(now)
+  let ready = false
+
+  if (now - messageSent >= deliveryTime) {
+    this.update({ status: 'DELIVERED' })
+    ready = true
+  }
+  return ready
 }
 
 module.exports = Message

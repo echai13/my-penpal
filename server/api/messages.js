@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Message } = require('../db/models')
+const { Message, Delivery } = require('../db/models')
 module.exports = router
 
 router.get('/:userId/received', (req, res, next) => {
@@ -73,9 +73,14 @@ router.get(`/:userId/checkstatus`, (req, res, next) => {
       status: 'SENT'
     }
   })
-    .then(messages => {
-      const filteredMessages = messages.filter(message => message.readyForDelivery())
-      res.json(filteredMessages)
-    })
-    .catch(next)
+  .then(async messages => {
+    let filteredMessages = []
+
+    for (let m of messages) {
+      let ready = await m.readyForDelivery()
+      if (ready) filteredMessages.push(m)
+    }
+    res.json(filteredMessages)
+  })
+
 })

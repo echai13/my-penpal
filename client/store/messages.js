@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import { setSingleMessage } from './singleMessage'
+import { setNotification } from './notification'
 const defaultMessages = []
 
 
@@ -28,7 +29,10 @@ export const fetchDrafts = (userId) =>
 export const checkMessagesStatus = (userId) =>
   dispatch =>
     axios.get(`/api/messages/${userId}/checkstatus`)
-      .then(messages => console.log(messages.data))
+      .then(messages => {
+        console.log(messages)
+        dispatch(setNotification(messages.data.length))
+      })
       .catch(err => console.log(err))
 
 export const saveMessage = message =>

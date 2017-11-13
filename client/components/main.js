@@ -22,7 +22,7 @@ const Main = (props) => {
             && <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
-              <Link to="/inbox">Inbox</Link>
+              <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
               <Link to="/preferences">Preferences</Link>
               <Link to="/penpals">Penpals</Link>
               <Link to="/write">New Letter</Link>
@@ -41,7 +41,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    notification: state.notification
   }
 }
 

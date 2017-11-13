@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import { fetchReceived, fetchSent, fetchDrafts, setSingleMessage } from '../store'
+import { fetchReceived, fetchSent, fetchDrafts, setSingleMessage, setNotification } from '../store'
 
 class Inbox extends React.Component {
   constructor() {
@@ -61,6 +61,7 @@ const mapState = state => {
 const mapDispatch = (dispatch) => {
   return {
     fetchMessages (type, userId) {
+      dispatch(setNotification(0))
       if (type === 'received') dispatch(fetchReceived(userId))
       else if (type === 'sent') dispatch(fetchSent(userId))
       else dispatch(fetchDrafts(userId))
