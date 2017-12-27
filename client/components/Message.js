@@ -32,31 +32,40 @@ class Message extends Component {
 
   render() {
     return (
-      <div className="center-block message">
+      <div className="row write-message">
+        <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+
         <form onSubmit={this.handleSubmit} className="center-block">
           <div className="form-group row">
-            <label className="center-block"><small>To: </small>
-            <select name="friend">
-              { this.props.friends && this.props.friends.map((friend, index) => (
-                <option value={index} key={friend.id} selected={ this.props.singleMessage.receiverId ? 'selected' : ''}>{friend.username}</option>
-              ))}
-            </select>
-            </label>
+            <div className="col-md-12 col-sm-12 col-xs-12">
+              <label className="center-block"><small>To: </small>
+              <select name="friend">
+                { this.props.friends && this.props.friends.map((friend, index) => (
+                  <option value={index} key={friend.id} selected={ this.props.singleMessage.receiverId ? 'selected' : ''}>{friend.username}</option>
+                ))}
+              </select>
+              </label>
+            </div>
           </div>
 
           <div className="form-group row">
+            <div className="col-md-12 col-sm-12 col-xs-12">
             { this.props.singleMessage && this.props.singleMessage.content ? <textarea name="content" className="message-content form-control center-block" defaultValue={this.props.singleMessage.content} placeholder="Write your letter..." /> :
-            <textarea name="content" className="message-content form-control center-block" placeholder="Write your letter..." />
-          }
+              <textarea name="content" className="message-content form-control center-block" placeholder="Write your letter..." />
+            }
+            </div>
           </div>
 
-          <div className="form-group center-block action-buttons">
-            <button type="submit" onClick={() => this.setAction('save')}>Save Changes</button>
-            <button type="submit" onClick={() => this.setAction('send')}>Send</button>
+          <div className="form-group row">
+            <div className="col-md-12 col-sm-12 col-xs-12">
+              <button type="submit" onClick={() => this.setAction('save')}>Save Changes</button>
+              <button type="submit" onClick={() => this.setAction('send')}>Send</button>
+            </div>
           </div>
 
         </form>
       </div>
+    </div>
     )
   }
 }

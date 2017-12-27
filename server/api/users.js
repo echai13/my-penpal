@@ -21,6 +21,15 @@ router.get(`/:userId/friends`, (req, res, next) => {
     .catch(next)
 })
 
+router.post(`/:userId/friends`, (req, res, next) => {
+  User.findOne({ where: { id: req.params.userId } })
+    .then(user => {
+      user.addFriends(req.body.penpalId)
+        .then(_ => res.sendStatus(200))
+    })
+    .catch(next)
+})
+
 router.get(`/:userId/penpals`, (req, res, next) => {
   User.findOne({ where: { id: req.params.userId }, include: [{ model: User, as: 'friends' }]})
     .then(async user => {

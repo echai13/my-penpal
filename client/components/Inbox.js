@@ -30,33 +30,39 @@ class Inbox extends React.Component {
 
   render() {
     return (
-      <div className="inbox">
-        <div className="inbox-buttons">
-          <button type="submit" onClick={() => this.handleClick('received')}>Received</button>
-          <button type="submit" onClick={() => this.handleClick('sent')}>Sent</button>
-          <button type="submit" onClick={() => this.handleClick('drafts')}>Drafts</button>
-        </div>
-        <div className="inbox-content">
-           { (this.state.draftToggle &&
-             this.props.messages && this.props.messages.map(message => (
-               <div key={message.id}>
-                 <h5>To: {message.receiver.username}</h5>
-                 <h5>From: {message.sender.username}</h5>
-                 <Link to={`/drafts/${message.id}`} onClick={() => this.props.fetchSingleMessage(message)}>{message.truncate}</Link>
-               </div> )))
+      <div className="row inbox">
+        <div className="col-md-12 col-sm-12 col-xs-12">
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+              <button type="submit" onClick={() => this.handleClick('received')}>Received</button>
+              <button type="submit" onClick={() => this.handleClick('sent')}>Sent</button>
+              <button type="submit" onClick={() => this.handleClick('drafts')}>Drafts</button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs-12 inbox-content">
+             { (this.state.draftToggle &&
+               this.props.messages && this.props.messages.map(message => (
+                 <div key={message.id} className="inbox-message">
+                   <h5>To: {message.receiver.username}</h5>
+                   <h5>From: {message.sender.username}</h5>
+                   <Link to={`/drafts/${message.id}`} onClick={() => this.props.fetchSingleMessage(message)}>{message.truncate}</Link>
+                 </div> )))
 
-            ||
+              ||
 
-            (this.state.sentToggle || this.state.receivedToggle)  &&
-            this.props.messages && this.props.messages.map(message => (
-              <div key={message.id}>
-                <h5>To: {message.receiver.username}</h5>
-                <h5>From: {message.sender.username}</h5>
-                <Link to={`/messages/${message.id}`}>{message.truncate}</Link>
-              </div>))
-            }
+              (this.state.sentToggle || this.state.receivedToggle)  &&
+              this.props.messages && this.props.messages.map(message => (
+                <div key={message.id} className="inbox-message">
+                  <h5>To: {message.receiver.username}</h5>
+                  <h5>From: {message.sender.username}</h5>
+                  <Link to={`/messages/${message.id}`}>{message.truncate}</Link>
+                </div>))
+              }
+          </div>
         </div>
       </div>
+    </div>
     )
   }
 }

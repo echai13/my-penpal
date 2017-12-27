@@ -14,22 +14,30 @@ const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
-    <div className="main">
-      <h1 className="col-md-12"><img src="/envelope.png" className="center-block" /></h1>
-      <nav>
-        {
-          isLoggedIn
-            && <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
-              <Link to="/preferences">Preferences</Link>
-              <Link to="/penpals">Penpals</Link>
-              <Link to="/write" onClick={props.handleWriteNew}>New Letter</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
-            </div>
-        }
-      </nav>
+    <div className="container-fluid no-padding">
+      <div className="row">
+        <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+          <img src="/envelope.png" alt="envelope-logo" className="logo" />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <nav className="d-flex justify-content-center">
+            {
+              isLoggedIn
+                && <div>
+                  {/* The navbar will show these links after you log in */}
+                  <Link to="/home">Home</Link>
+                  <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
+                  <Link to="/preferences">Preferences</Link>
+                  <Link to="/penpals">Penpals</Link>
+                  <Link to="/write" onClick={props.handleWriteNew}>New Letter</Link>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </div>
+            }
+          </nav>
+        </div>
+      </div>
       <hr />
       {children}
     </div>
