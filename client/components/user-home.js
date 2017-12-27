@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
@@ -16,22 +18,34 @@ class UserHome extends React.Component {
 
   render() {
     return (
-      <div className="home-page row" style={{backgroundImage: "url('/wood.jpg')"}}>
-        <div className="col-md-6">
-          <Link to="/inbox"><img src="/received_letters.png" className="received" /></Link>
-          <img src="/stamp.png" className="stamps" />
-        </div>
-        <div className="col-md-6">
-          <Link to="/write"><img src="/new_letters.png" className="write" /></Link>
-          <img src="/writing_utensils.png" />
-        </div>
-        {/* <h3>Welcome, {this.props.email}</h3>
+      <div className="row home-page d-flex align-items-center justify-content-center">
+        <div className="col-md-6 col-sm-12 col-xs-12">
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs">
+              <Link to="/inbox"><img src="/received_letters.png" className="received" /></Link>
+            </div>
+          </div>
 
-        <ul>
-          { this.props.friends && this.props.friends.map(friend => (
-            <li key={friend.id}>{friend.username}</li>
-          ))}
-        </ul> */}
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs">
+              <img src="/stamp.png" className="stamps" />
+            </div>
+          </div>
+
+        </div>
+        <div className="col-md-6 col-sm-12 col-xs-12">
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs">
+              <Link to="/write"><img src="/new_letters.png" className="write" /></Link>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12 col-sm-12 col-xs">
+              <img src="/writing_utensils.png" className="utensils" />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

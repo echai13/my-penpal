@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchPenpals } from '../store'
+import { fetchPenpals, setPenpal } from '../store'
 
 /**
  * COMPONENT
@@ -22,7 +22,7 @@ class Penpals extends Component {
             <h4 className="col-md-12">{penpal.username}</h4>
             <img className="col-md-12" src={penpal.image} />
             { this.props.friends.length < 3 &&
-            <div><button type="submit">Add Friend</button></div>
+            <div><button type="submit" onClick={() => this.props.addPenpal(this.props.user.id, penpal.id)}>Add Friend</button></div>
             }
           </div>
         ))}
@@ -47,6 +47,9 @@ const mapDispatch = dispatch => {
   return {
     fetchAllPenpals(user) {
       dispatch(fetchPenpals(user))
+    },
+    addPenpal(userId, penpalId) {
+      dispatch(setPenpal({ userId, penpalId }))
     }
   }
 }

@@ -11,18 +11,18 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="login">
+    <div className="row">
       { props.name === 'login' &&
-        <div className="auth-text text-center">
+        <div className="auth-text col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
           <h4><span className="gray">New? </span>
             <span className="yellow"><Link to="/signup" className="no-link-dec yellow">Sign Up Now.</Link></span>
           </h4>
         </div>
       }
-      <div className="form-width">
+      <div className="col-md-6 offset-md-3 col-sm-12 col-xs-12 auth-form">
       <form onSubmit={handleSubmit} name={name} className="center-block">
         <div className="form-group">
-          <label htmlFor="email"><small>Email</small></label>
+          <label htmlFor="email" className="d-flex justify-content-center justify-content-md-start justify-content-lg-start"><small>Email</small></label>
           <input name="email" type="text" className="form-control" />
         </div>
         <div className="form-group">
@@ -46,9 +46,10 @@ const AuthForm = (props) => {
           </span>
         }
 
-
-        <div className="form-group">
-          <button type="submit" className="form-control yellow">{displayName}</button>
+        <div className="row d-flex justify-content-center">
+          <div className="col-md-6 col-sm-4 col-xs-4">
+            <button type="submit" className="form-control">{displayName}</button>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

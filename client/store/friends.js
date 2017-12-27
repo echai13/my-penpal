@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { fetchPenpals } from './penpals'
 
 const defaultFriends = []
 
@@ -11,6 +12,15 @@ export const fetchFriends = (userId) =>
     axios.get(`/api/users/${userId}/friends`)
       .then(friends => {
         dispatch(getFriends(friends.data.friends))
+      })
+      .catch(err => console.log(err))
+
+export const setPenpal = (penpal) =>
+  dispatch =>
+    axios.post(`/api/users/${penpal.userId}/friends`, penpal)
+      .then(_ => {
+        dispatch(fetchFriends(penpal.userId))
+        dispatch(fetchPenpals({ id: penpal.userId }))
       })
       .catch(err => console.log(err))
 
