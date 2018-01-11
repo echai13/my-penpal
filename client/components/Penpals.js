@@ -16,8 +16,10 @@ class Penpals extends Component {
   render() {
    return (
       <div>
-        <div className="penpals row">
-        { this.props.penpals && this.props.penpals.map(penpal => (
+        <div className="penpals row d-flex justify-content-center">
+        { this.props.penpals.length > 0 ?
+
+          this.props.penpals.map(penpal => (
           <div key={penpal.id} className="penpals-list col-md-4">
             <h4 className="col-md-12">{penpal.username}</h4>
             <img className="col-md-12" src={penpal.image} />
@@ -25,7 +27,9 @@ class Penpals extends Component {
             <div><button type="submit" onClick={() => this.props.addPenpal(this.props.user.id, penpal.id)}>Add Friend</button></div>
             }
           </div>
-        ))}
+        )) :
+        <h3>You currently have no penpals that meet your preferences</h3>
+        }
         </div>
       </div>
     )

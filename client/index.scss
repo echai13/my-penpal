@@ -4,7 +4,11 @@ $main-yellow: #FDEAA6;
 body {
   font-family: sans-serif;
   overflow-x: hidden !important;
-
+  button {
+    &:active, &:focus {
+      outline: none;
+    }
+  }
   a {
     text-decoration: none;
   }
@@ -23,10 +27,16 @@ body {
     display: block;
   }
 
-  nav a {
-    display: inline-block;
-    margin: 1em;
+  nav  {
+    ul {
+      margin: 0 auto;
+    }
+    a {
+      display: inline-block;
+      margin: 1em;
+    }
   }
+
 
   #app.main-bkgd {
     min-height: 100vh !important;
@@ -96,6 +106,13 @@ body {
         margin: 2vh;
       }
     }
+    button {
+      cursor: pointer;
+      background-color: $main-blue;
+      &:hover, &:active, &:focus {
+        color: $main-yellow;
+      }
+    }
   }
 
   .write-message {
@@ -107,8 +124,29 @@ body {
   }
 
   .preferences {
-    .pref-form {
-      background-color: $main-blue
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    .your-info button {
+      background-color: $main-blue;
     }
+    .edit-form {
+      margin-top: 7vh;
+      button {
+        background-color: $main-yellow;
+      }
+    }
+    .pref-form {
+      background-color: $main-blue;
+      div.row, button {
+        margin: 5vh;
+      }
+      select {
+        background-color: $main-yellow
+      }
+    }
+  }
+
+  .penpals {
+    margin: 3vh;
   }
 }

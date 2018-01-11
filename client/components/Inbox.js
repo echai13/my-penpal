@@ -20,9 +20,9 @@ class Inbox extends React.Component {
   }
 
   handleClick(type) {
-    if (type === 'received') this.setState({ receivedToggle: !this.state.receivedToggle })
-    else if (type === 'sent') this.setState({ sentToggle: !this.state.sentToggle })
-    else this.setState({ draftToggle: !this.state.draftToggle })
+    if (type === 'received') this.setState({ receivedToggle: true, sentToggle: false, draftToggle: false })
+    else if (type === 'sent') this.setState({ sentToggle: true, receivedToggle: false, draftToggle: false })
+    else this.setState({ draftToggle: true, sentToggle: false, receivedToggle: false })
 
     this.props.fetchMessages(type, this.props.user.id)
   }
@@ -34,9 +34,21 @@ class Inbox extends React.Component {
         <div className="col-md-12 col-sm-12 col-xs-12">
           <div className="row">
             <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-              <button type="submit" onClick={() => this.handleClick('received')}>Received</button>
-              <button type="submit" onClick={() => this.handleClick('sent')}>Sent</button>
-              <button type="submit" onClick={() => this.handleClick('drafts')}>Drafts</button>
+              <button
+                type="submit"
+                onClick={() => this.handleClick('received')}
+                style={{ color: `${this.state.receivedToggle ? '#FDEAA6' : 'black'}` }}
+                >Received</button>
+              <button
+                type="submit"
+                onClick={() => this.handleClick('sent')}
+                style={{ color: `${this.state.sentToggle ? '#FDEAA6' : 'black'}` }}
+                >Sent</button>
+              <button
+                type="submit"
+                onClick={() => this.handleClick('drafts')}
+                style={{ color: `${this.state.draftToggle ? '#FDEAA6' : 'black'}` }}
+                >Drafts</button>
             </div>
           </div>
           <div className="row">

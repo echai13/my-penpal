@@ -77,7 +77,7 @@ export class Preferences extends Component {
             </div>
 
 
-            <div className="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center">
+            <div className="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center your-info">
               <div>
                 <h4>Preferences</h4>
                 <p>Gender: { this.props.user.preference ? this.props.user.preference.gender : 'Set gender' }</p>
@@ -89,7 +89,7 @@ export class Preferences extends Component {
 
           </div>
         { this.state.toggleForm &&
-        <div className="row">
+        <div className="row edit-form">
           <div className="col-md-12 d-flex justify-content-center pref-form">
             <form onSubmit={this.handleSubmit} className="interest">
               <div className="row">

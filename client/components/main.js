@@ -17,22 +17,45 @@ const Main = (props) => {
     <div className="container-fluid no-padding">
       <div className="row">
         <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
-          <img src="/envelope.png" alt="envelope-logo" className="logo" />
+          <Link to="/home"><img src="/envelope.png" alt="envelope-logo" className="logo" /></Link>
         </div>
       </div>
       <div className="row">
-        <div className="col-md-12">
-          <nav className="d-flex justify-content-center">
+        <div className="col-md-12 col-sm-12 col-xs-12">
+          <nav className="d-flex justify-content-center navbar navbar-expand-md navbar-light bg-faded">
+            <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon" />
+            </button>
             {
               isLoggedIn
-                && <div>
+                &&
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                   {/* The navbar will show these links after you log in */}
-                  <Link to="/home">Home</Link>
-                  <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
-                  <Link to="/preferences">Preferences</Link>
-                  <Link to="/penpals">Penpals</Link>
-                  <Link to="/write" onClick={props.handleWriteNew}>New Letter</Link>
-                  <a href="#" onClick={handleClick}>Logout</a>
+                  <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                      <Link to="/home">Home</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to="/inbox">Inbox {props.notification ? props.notification : ''}</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to="/preferences">Preferences</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to="/penpals">Penpals</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to="/write" onClick={props.handleWriteNew}>New Letter</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <a href="#" onClick={handleClick}>Logout</a>
+                    </li>
+                  </ul>
                 </div>
             }
           </nav>
