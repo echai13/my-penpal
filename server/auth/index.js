@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Preference = require('../db/models/preference')
 const satelize = require('satelize')
 module.exports = router
 
@@ -28,9 +29,9 @@ router.post('/signup', (req, res, next) => {
     if (err) next(err)
   })
 
-
   User.create(req.body)
     .then(user => {
+      Preference.create({ userId: user.id })
       req.login(user, err => (err ? next(err) : res.json(user)))
     })
     .catch(err => {

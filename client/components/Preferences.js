@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { fetchInterests, setPref, fetchFriends } from '../store'
+import { fetchInterests, setPref, fetchFriends, fetchPref } from '../store'
 
 export class Preferences extends Component {
   constructor(props) {
@@ -65,9 +65,9 @@ export class Preferences extends Component {
                 <p>Location: { this.props.user.location }</p>
                 <h5>Your Penpals: </h5>
                 <div className="row d-flex justify-content-center">
-                  { this.props.friends.map(friend => (
+                  { this.props.friends && this.props.friends.map(friend => (
                   <div className="col-md-4" key={friend.id}>
-                    <img className="col-md-12" src="/avatar-guy-01.png" />
+                    <img className="col-md-12" src={`${friend.image}`} />
                     <div className="col-md-12">{friend.username}</div>
                   </div>
                   )
@@ -80,9 +80,9 @@ export class Preferences extends Component {
             <div className="col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center your-info">
               <div>
                 <h4>Preferences</h4>
-                <p>Gender: { this.props.user.preference ? this.props.user.preference.gender : 'Set gender' }</p>
-                <p>Location: { this.props.user.preference ? this.props.user.preference.location : 'Set Location' }</p>
-                <p>Interests: { this.props.user.interests.map(interest => interest.category).join(', ') || 'Set your interests'}</p>
+                <p>Gender: { this.props.preferences.gender ? this.props.preferences.gender : 'Set gender' }</p>
+                <p>Location: { this.props.preferences.location ? this.props.preferences.location : 'Set Location' }</p>
+                <p>Interests: { this.props.user.interests && this.props.user.interests.map(interest => interest.category).join(', ') || 'Set your interests'}</p>
                 <button type="submit" onClick={() => this.setState({ toggleForm: !this.state.toggleForm })}>Edit Preferences</button>
               </div>
             </div>
@@ -156,7 +156,8 @@ const mapState = state => {
     user: state.user,
     interests: state.interests,
     countries: state.countries,
-    friends: state.friends
+    friends: state.friends,
+    preferences: state.preferences
   }
 }
 
@@ -170,6 +171,7 @@ const mapDispatch = dispatch => {
     },
     fetchAllFriends(userId) {
       dispatch(fetchFriends(userId))
+      dispatch(fetchPref(userId))
     }
   }
 }

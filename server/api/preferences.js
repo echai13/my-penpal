@@ -2,6 +2,16 @@ const router = require('express').Router()
 const { Interest, User, Preference } = require('../db/models')
 module.exports = router
 
+
+router.get(`/:userId`, (req, res, next) => {
+  Preference.findOne({
+    where: {
+      userId: req.params.userId
+    }
+  })
+  .then(pref => res.json(pref))
+  .catch(next)
+})
 router.put(`/:userId`, (req, res, next) => {
   Preference.findOne({
     where: {

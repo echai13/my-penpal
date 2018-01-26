@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import { fetchFriends, checkMessagesStatus } from '../store'
+import { fetchFriends, checkMessagesStatus, fetchInterests } from '../store'
 
 /**
  * COMPONENT
@@ -14,9 +14,11 @@ class UserHome extends React.Component {
   componentDidMount() {
     this.props.fetchAllFriends(this.props.user.id)
     this.props.checkMessages(this.props.user.id)
+    this.props.fetchAllInterests()
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="row home-page d-flex align-items-center justify-content-center">
         <div className="col-md-6 col-sm-12 col-xs-12">
@@ -65,12 +67,13 @@ const mapState = (state) => {
 const mapDispatch = dispatch => {
   return {
     fetchAllFriends (userId) {
-      console.log('enter')
       dispatch(fetchFriends(userId))
     },
     checkMessages (userId) {
-      console.log(`enter checkMessages`)
       dispatch(checkMessagesStatus(userId))
+    },
+    fetchAllInterests() {
+      dispatch(fetchInterests())
     }
   }
 }

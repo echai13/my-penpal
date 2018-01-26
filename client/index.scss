@@ -45,14 +45,18 @@ body {
     overflow-x: hidden !important
   }
 
-  .auth-form {
-    background-color: $main-blue;
-    padding: 2vh;
-    input {
-      background-color: $main-yellow
-    }
-    input:focus {
-      background-color: $main-yellow
+  .signup-login {
+    height: 58vh;
+  
+    .auth-form {
+      background-color: $main-blue;
+      padding: 2vh;
+      input {
+        background-color: $main-yellow
+      }
+      input:focus {
+        background-color: $main-yellow
+      }
     }
   }
 

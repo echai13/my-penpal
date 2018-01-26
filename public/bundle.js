@@ -10017,7 +10017,7 @@ var AuthForm = function AuthForm(props) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'row d-flex justify-content-center' },
+    { className: 'row d-flex align-items-center justify-content-center signup-login' },
     _react2.default.createElement(
       'span',
       null,
@@ -11009,11 +11009,11 @@ var Preferences = exports.Preferences = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'row d-flex justify-content-center' },
-                  this.props.friends.map(function (friend) {
+                  this.props.friends && this.props.friends.map(function (friend) {
                     return _react2.default.createElement(
                       'div',
                       { className: 'col-md-4', key: friend.id },
-                      _react2.default.createElement('img', { className: 'col-md-12', src: '/avatar-guy-01.png' }),
+                      _react2.default.createElement('img', { className: 'col-md-12', src: '' + friend.image }),
                       _react2.default.createElement(
                         'div',
                         { className: 'col-md-12' },
@@ -11039,19 +11039,19 @@ var Preferences = exports.Preferences = function (_Component) {
                   'p',
                   null,
                   'Gender: ',
-                  this.props.user.preference ? this.props.user.preference.gender : 'Set gender'
+                  this.props.preferences.gender ? this.props.preferences.gender : 'Set gender'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
                   'Location: ',
-                  this.props.user.preference ? this.props.user.preference.location : 'Set Location'
+                  this.props.preferences.location ? this.props.preferences.location : 'Set Location'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
                   'Interests: ',
-                  this.props.user.interests.map(function (interest) {
+                  this.props.user.interests && this.props.user.interests.map(function (interest) {
                     return interest.category;
                   }).join(', ') || 'Set your interests'
                 ),
@@ -11189,7 +11189,8 @@ var mapState = function mapState(state) {
     user: state.user,
     interests: state.interests,
     countries: state.countries,
-    friends: state.friends
+    friends: state.friends,
+    preferences: state.preferences
   };
 };
 
@@ -11203,6 +11204,7 @@ var mapDispatch = function mapDispatch(dispatch) {
     },
     fetchAllFriends: function fetchAllFriends(userId) {
       dispatch((0, _store.fetchFriends)(userId));
+      dispatch((0, _store.fetchPref)(userId));
     }
   };
 };
@@ -11261,10 +11263,12 @@ var UserHome = function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchAllFriends(this.props.user.id);
       this.props.checkMessages(this.props.user.id);
+      this.props.fetchAllInterests();
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.props);
       return _react2.default.createElement(
         'div',
         { className: 'row home-page d-flex align-items-center justify-content-center' },
@@ -11343,12 +11347,13 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     fetchAllFriends: function fetchAllFriends(userId) {
-      console.log('enter');
       dispatch((0, _store.fetchFriends)(userId));
     },
     checkMessages: function checkMessages(userId) {
-      console.log('enter checkMessages');
       dispatch((0, _store.checkMessagesStatus)(userId));
+    },
+    fetchAllInterests: function fetchAllInterests() {
+      dispatch((0, _store.fetchInterests)());
     }
   };
 };
@@ -11730,7 +11735,7 @@ var sendMessage = exports.sendMessage = function sendMessage(message) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setPref = undefined;
+exports.fetchPref = exports.setPref = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultPreferences;
@@ -11741,6 +11746,8 @@ exports.default = function () {
       return Object.assign({}, state, { gender: action.gender });
     case GET_LOCATION:
       return Object.assign({}, state, { location: action.location });
+    case GET_PREFERENCES:
+      return Object.assign({}, state, { gender: action.pref.gender || 'No Preference', location: action.pref.location || 'Venus' });
     default:
       return state;
   }
@@ -11756,6 +11763,7 @@ var defaultPreferences = {};
 
 var GET_GENDER = 'GET_GENDER';
 var GET_LOCATION = 'GET_LOCATION';
+var GET_PREFERENCES = 'GET_PREFERENCES';
 
 var getGender = function getGender(gender) {
   return { type: GET_GENDER, gender: gender };
@@ -11763,12 +11771,27 @@ var getGender = function getGender(gender) {
 var getLocation = function getLocation(location) {
   return { type: GET_LOCATION, location: location };
 };
+var getPref = function getPref(pref) {
+  return { type: GET_PREFERENCES, pref: pref };
+};
 
 var setPref = exports.setPref = function setPref(preferences, userId) {
   return function (dispatch) {
     return _axios2.default.put('/api/preferences/' + userId, preferences).then(function (_) {
       dispatch(getGender(preferences.selectedGender));
       dispatch(getLocation(preferences.selectedLocation));
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+};
+
+var fetchPref = exports.fetchPref = function fetchPref(userId) {
+  return function (dispatch) {
+    return _axios2.default.get('/api/preferences/' + userId).then(function (results) {
+      return results.data;
+    }).then(function (pref) {
+      return dispatch(getPref(pref));
     }).catch(function (err) {
       return console.log(err);
     });
@@ -12147,7 +12170,7 @@ exports = module.exports = __webpack_require__(134)();
 
 
 // module
-exports.push([module.i, "body {\n  font-family: sans-serif;\n  overflow-x: hidden !important; }\n  body button:active, body button:focus {\n    outline: none; }\n  body a {\n    text-decoration: none; }\n  body .container {\n    height: 100vh;\n    max-width: 100vw; }\n  body img.logo {\n    margin-top: 3%;\n    margin-bottom: 3%; }\n  body label {\n    display: block; }\n  body nav ul {\n    margin: 0 auto; }\n  body nav a {\n    display: inline-block;\n    margin: 1em; }\n  body #app.main-bkgd {\n    min-height: 100vh !important;\n    min-width: 100vw !important;\n    background-color: #FDEAA6 !important;\n    overflow-x: hidden !important; }\n  body .auth-form {\n    background-color: #7BC5DA;\n    padding: 2vh; }\n    body .auth-form input {\n      background-color: #FDEAA6; }\n    body .auth-form input:focus {\n      background-color: #FDEAA6; }\n  body .home-page {\n    padding: 3%;\n    margin: 0 auto;\n    background: url(\"/wood.jpg\") center no-repeat;\n    background-size: cover; }\n    body .home-page .received, body .home-page .write, body .home-page .stamps, body .home-page .utensils {\n      width: 100%; }\n    body .home-page :hover,\n    body .home-page img.received :hover {\n      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\n      transform: translate3d(0, 0, 0);\n      backface-visibility: hidden;\n      perspective: 1000px;\n      animation-iteration-count: infinite; }\n\n@keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0); }\n  \n  20%, 80% {\n    transform: translate3d(2px, 0, 0); }\n  \n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0); }\n  \n  40%, 60% {\n    transform: translate3d(4px, 0, 0); } }\n  body .no-padding {\n    padding-left: 0;\n    padding-right: 0; }\n  body .inbox .inbox-content {\n    padding: 3vh; }\n    body .inbox .inbox-content .inbox-message {\n      background-color: #7BC5DA;\n      padding: 2vh;\n      margin: 2vh; }\n  body .inbox button {\n    cursor: pointer;\n    background-color: #7BC5DA; }\n    body .inbox button:hover, body .inbox button:active, body .inbox button:focus {\n      color: #FDEAA6; }\n  body .write-message textarea, body .write-message textarea:focus {\n    background-color: #7BC5DA;\n    min-height: 35vh;\n    min-width: 60vw; }\n  body .preferences {\n    margin-top: 5vh;\n    margin-bottom: 5vh; }\n    body .preferences .your-info button {\n      background-color: #7BC5DA; }\n    body .preferences .edit-form {\n      margin-top: 7vh; }\n      body .preferences .edit-form button {\n        background-color: #FDEAA6; }\n    body .preferences .pref-form {\n      background-color: #7BC5DA; }\n      body .preferences .pref-form div.row, body .preferences .pref-form button {\n        margin: 5vh; }\n      body .preferences .pref-form select {\n        background-color: #FDEAA6; }\n  body .penpals {\n    margin: 3vh; }\n", ""]);
+exports.push([module.i, "body {\n  font-family: sans-serif;\n  overflow-x: hidden !important; }\n  body button:active, body button:focus {\n    outline: none; }\n  body a {\n    text-decoration: none; }\n  body .container {\n    height: 100vh;\n    max-width: 100vw; }\n  body img.logo {\n    margin-top: 3%;\n    margin-bottom: 3%; }\n  body label {\n    display: block; }\n  body nav ul {\n    margin: 0 auto; }\n  body nav a {\n    display: inline-block;\n    margin: 1em; }\n  body #app.main-bkgd {\n    min-height: 100vh !important;\n    min-width: 100vw !important;\n    background-color: #FDEAA6 !important;\n    overflow-x: hidden !important; }\n  body .signup-login {\n    height: 58vh; }\n    body .signup-login .auth-form {\n      background-color: #7BC5DA;\n      padding: 2vh; }\n      body .signup-login .auth-form input {\n        background-color: #FDEAA6; }\n      body .signup-login .auth-form input:focus {\n        background-color: #FDEAA6; }\n  body .home-page {\n    padding: 3%;\n    margin: 0 auto;\n    background: url(\"/wood.jpg\") center no-repeat;\n    background-size: cover; }\n    body .home-page .received, body .home-page .write, body .home-page .stamps, body .home-page .utensils {\n      width: 100%; }\n    body .home-page :hover,\n    body .home-page img.received :hover {\n      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;\n      transform: translate3d(0, 0, 0);\n      backface-visibility: hidden;\n      perspective: 1000px;\n      animation-iteration-count: infinite; }\n\n@keyframes shake {\n  10%, 90% {\n    transform: translate3d(-1px, 0, 0); }\n  \n  20%, 80% {\n    transform: translate3d(2px, 0, 0); }\n  \n  30%, 50%, 70% {\n    transform: translate3d(-4px, 0, 0); }\n  \n  40%, 60% {\n    transform: translate3d(4px, 0, 0); } }\n  body .no-padding {\n    padding-left: 0;\n    padding-right: 0; }\n  body .inbox .inbox-content {\n    padding: 3vh; }\n    body .inbox .inbox-content .inbox-message {\n      background-color: #7BC5DA;\n      padding: 2vh;\n      margin: 2vh; }\n  body .inbox button {\n    cursor: pointer;\n    background-color: #7BC5DA; }\n    body .inbox button:hover, body .inbox button:active, body .inbox button:focus {\n      color: #FDEAA6; }\n  body .write-message textarea, body .write-message textarea:focus {\n    background-color: #7BC5DA;\n    min-height: 35vh;\n    min-width: 60vw; }\n  body .preferences {\n    margin-top: 5vh;\n    margin-bottom: 5vh; }\n    body .preferences .your-info button {\n      background-color: #7BC5DA; }\n    body .preferences .edit-form {\n      margin-top: 7vh; }\n      body .preferences .edit-form button {\n        background-color: #FDEAA6; }\n    body .preferences .pref-form {\n      background-color: #7BC5DA; }\n      body .preferences .pref-form div.row, body .preferences .pref-form button {\n        margin: 5vh; }\n      body .preferences .pref-form select {\n        background-color: #FDEAA6; }\n  body .penpals {\n    margin: 3vh; }\n", ""]);
 
 // exports
 
