@@ -21,7 +21,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/signup', (req, res, next) => {
   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  console.log(`ip: `, ip)
+  console.log(`ip-address: `, ip)
 
   satelize.satelize({ ip: '71.190.247.98' }, function(err, payload) {
     req.body.location = payload.country.en
